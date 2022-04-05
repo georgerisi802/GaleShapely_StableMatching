@@ -14,6 +14,7 @@ import java.util.*;
 import javafx.application.*;
 import javafx.scene.*;
 import javafx.scene.layout.*;
+import javafx.scene.text.*;
 import javafx.scene.control.*;
 import javafx.stage.*;
 import javafx.event.*;
@@ -28,33 +29,52 @@ public class Main extends Application{
 	
 	public void start(Stage mainStage) {
 		
-		mainStage.setTitle("Stable Matching App");					// The window that holds everything
+		mainStage.setTitle("Stable Matching App");					// Main GUI window
+		int stageWidth = 600;
+		int stageHeight = 600;
 		
-		FlowPane rootNode = new FlowPane(Orientation.VERTICAL, 10, 10);	// Numbers are spacing between elements
 		
-		FlowPane subNode1 = new FlowPane(Orientation.HORIZONTAL, 10, 10); 
+		FlowPane rootNode = new FlowPane(Orientation.VERTICAL);
+		rootNode.setPrefWrapLength(stageHeight);
 		
-		// rootNode pane contains two tables
+		FlowPane subNode1 = new FlowPane(Orientation.HORIZONTAL);
+		subNode1.setPrefWrapLength(stageWidth);
+		FlowPane subNode2 = new FlowPane(Orientation.HORIZONTAL, 20, 20);
+		subNode2.setPrefWrapLength(stageWidth);
+		rootNode.getChildren().addAll(subNode1, subNode2);
+		
+		// Intro/instructions
+		Text intro = new Text();
+		intro.setFont(new Font(20));
+		intro.setText("Welcome to this app.\nHere are some instructions.");
+		subNode1.getChildren().add(intro);
+		
+		// Two tables
 		GridPane leftTable = new GridPane();						// For group 1	
 		GridPane rightTable = new GridPane();						// For group 2
-		rootNode.getChildren().addAll(leftTable, rightTable);
+		subNode2.getChildren().addAll(leftTable, rightTable);
 		
 		// Left Table Stuff
-		leftTable.add(new TextField("Dummy text"), 0, 0);
+		leftTable.add(new TextField("group1 a"), 0, 0);
 		leftTable.add(new Button("Rank"), 1, 0);
-		leftTable.add(new TextField("More Dummy Text"), 0, 1);
+		leftTable.add(new TextField("group1 b"), 0, 1);
+		leftTable.add(new Button("Rank"), 1, 1);
 		
-		Label test1 = new Label("TESTING");
+		// Right Table stuff
+		rightTable.add(new TextField("group2 a"), 0, 0);
+		rightTable.add(new Button("Rank"), 1, 0);
+		rightTable.add(new TextField("group2 b"), 0, 1);
+		rightTable.add(new Button("Rank"), 1, 1);
 		
-		TextField test2 = new TextField();
+		//Label test1 = new Label("TESTING");
+		
+		Button matchButt = new Button("Match!");
 		
 		
+		Scene mainScene = new Scene(rootNode, stageWidth, stageHeight);
 		
-		Scene scene1 = new Scene(rootNode, 500, 750);
-		
-		mainStage.setScene(scene1);
+		mainStage.setScene(mainScene);
 		
 		mainStage.show();
-		
 	}
 }
